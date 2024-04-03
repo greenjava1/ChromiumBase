@@ -22,22 +22,25 @@
 #include <vector>
 
 
-
-static std::atomic_size_t num_tasks_pending_{ 0 };
+static int num_tasks_pending_{ 0 };
+//static std::atomic_size_t num_tasks_pending_{ 0 };
 // static int num_posted_tasks_ = 0;
 
 void ContinuouslyBindAndPostNoOpTasks(size_t num_tasks) {
-    scoped_refptr<base::TaskRunner> task_runner = base::CreateTaskRunner({ base::ThreadPool() });
+    scoped_refptr<base::TaskRunner> task_runner = base::CreateTaskRunner( base::ThreadPool() );
     for (size_t i = 0; i < num_tasks; ++i) {
         ++num_tasks_pending_;
         task_runner->PostTask(FROM_HERE,
             base::BindOnce(
-                [](std::atomic_size_t* num_task_pending) {
+                //[](std::atomic_size_t* num_task_pending) {
+                [](int* num_task_pending) {
                     std::this_thread::sleep_for(std::chrono::seconds(2)); // 模拟耗时操作
                     (*num_task_pending)--;
+                    std::cout << "num_tasks_pending_ = " << num_tasks_pending_ << std::endl;
                 },
                 &num_tasks_pending_));
     }
+    std::cout << "final num_tasks_pending_ = " << num_tasks_pending_ << std::endl;
 }
 
 void Hello(void* data) {
