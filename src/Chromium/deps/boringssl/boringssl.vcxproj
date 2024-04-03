@@ -74,11 +74,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\BinDebug\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\Bin$(Configuration)\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(PlatformTarget)\BinDebug\$(ProjectName)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\Bin$(Configuration)\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -90,6 +94,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\src\third_party\boringssl\src\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DisableSpecificWarnings>4267;4819;4244</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -100,7 +105,7 @@
       <AdditionalDependencies>ssl.lib;crypto.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Lib\LibDebug\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Lib\$(PlatformTarget)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -113,6 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\src\third_party\boringssl\src\include</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

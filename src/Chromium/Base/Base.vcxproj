@@ -77,11 +77,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <UseStructuredOutput>false</UseStructuredOutput>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(LibraryPath)</LibraryPath>
-    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
-    <IncludePath>$(IncludePath)</IncludePath>
-    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</ExternalIncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <ReferencePath>$(VC_ReferencesPath_x86);</ReferencePath>
     <OutDir>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\BinDebug\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\Bin$(Configuration)\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)..\Lib\LibDebug\</OutDir>
@@ -90,7 +90,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\BinDebug\$(ProjectName)\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)obj\$(PlatformTarget)\Bin$(Configuration)\$(ProjectName)\$(Configuration)\</IntDir>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\</OutDir>
@@ -115,16 +116,17 @@
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <AdditionalOptions>/Zc:sizedDealloc- %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>$(SolutionDir)..\Bin\BinDebug\$(ProjectName).dll</OutputFile>
-      <AdditionalDependencies>Dbghelp.lib;version.lib;Ws2_32.lib;Winmm.lib;Userenv.lib;modp_b64.lib;wbemuuid.lib;Powrprof.lib;Propsys.lib;shlwapi.lib;Setupapi.lib;pe_image.lib;boringssl.lib;dynamic_annotations.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\Lib\LibDebug\</AdditionalLibraryDirectories>
+      <OutputFile>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\$(ProjectName).dll</OutputFile>
+      <AdditionalDependencies>modp_b64.lib;Dbghelp.lib;version.lib;Ws2_32.lib;Winmm.lib;Userenv.lib;wbemuuid.lib;Powrprof.lib;Propsys.lib;shlwapi.lib;Setupapi.lib;pe_image.lib;boringssl.lib;dynamic_annotations.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>LIBCMTD.lib</IgnoreSpecificDefaultLibraries>
-      <ImportLibrary>$(SolutionDir)..\Lib\LibDebug\$(TargetName)Dll.lib</ImportLibrary>
-      <ProgramDatabaseFile>$(SolutionDir)..\Bin\BinDebug\$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\$(ProjectName)Dll.lib</ImportLibrary>
+      <ProgramDatabaseFile>$(SolutionDir)..\Bin\$(PlatformTarget)\Bin$(Configuration)\</ProgramDatabaseFile>
     </Link>
     <Lib>
       <AdditionalDependencies>crypto.lib;ssl.lib;decrepit.lib;cfgmgr32.lib;powrprof.lib;propsys.lib;setupapi.lib;userenv.lib;wbemuuid.lib;winmm.lib</AdditionalDependencies>
@@ -147,6 +149,7 @@
       <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
       <DisableSpecificWarnings>4117;4101;4091;4127;4251;4275;4312;4324;4351;4355;4503;4589;4611;4100;4121;4244;4505;4510;4512;4610;4838;4995;4996;4456;4457;4458;4459;4200;4201;4204;4221;4245;4267;4305;4389;4702;4701;4703;4661;4706;4715;4577;4819</DisableSpecificWarnings>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
